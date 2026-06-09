@@ -20,6 +20,10 @@ jobs:
 
       - run: flutter build web --release --base-href "/cringe/" --no-web-resources-cdn
 
+      - name: Fix canvaskit path in flutter_bootstrap.js
+        run: |
+          sed -i 's|"canvaskit/"|"/cringe/canvaskit/"|g' build/web/flutter_bootstrap.js
+
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
