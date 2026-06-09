@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static const String fontFamily = 'Shabnam';
   static const String fontFamilyFD = 'ShabnamFD';
-  static const String fontFamilyEmoji = 'NotoEmoji';
+  static const String fontFamilyEmoji = 'NotoColorEmoji';
 
-  static const List<String> fontFamilyFallback = ['NotoEmoji'];
+  static const List<String> fontFamilyFallback = ['NotoColorEmoji'];
 
   static ThemeData get darkTheme {
     return ThemeData(
