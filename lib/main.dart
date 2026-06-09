@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:ui';
 import 'dart:math' as math;
+import 'app_theme.dart';
 
 void main() {
   runApp(const CringeGameApp());
@@ -22,17 +23,12 @@ class CringeGameApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xff09090B),
-        fontFamily: 'Shabnam',
-      ),
+      theme: AppTheme.darkTheme,
       home: const MainMenuPage(),
     );
   }
 }
 
-// --- ۱. صفحه منوی اصلی (PARTY GLOW & HERO VIEW) ---
 class MainMenuPage extends StatefulWidget {
   const MainMenuPage({super.key});
 
@@ -66,50 +62,29 @@ class _MainMenuPageState extends State<MainMenuPage> with SingleTickerProviderSt
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xff0F172A),
-              Color(0xff1E1B4B),
-              Color(0xff09090B),
-            ],
+            colors: [Color(0xff0F172A), Color(0xff1E1B4B), Color(0xff09090B)],
           ),
         ),
         child: SafeArea(
           child: Stack(
             children: [
-              // نئونهای پشت صفحه با استفاده درست از boxShadow
               Positioned(
-                top: 100,
-                left: -50,
+                top: 100, left: -50,
                 child: Container(
-                  width: 200,
-                  height: 200,
+                  width: 200, height: 200,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xffFF3B5C).withOpacity(0.15),
-                        blurRadius: 80,
-                        spreadRadius: 20,
-                      ),
-                    ],
+                    boxShadow: [BoxShadow(color: const Color(0xffFF3B5C).withOpacity(0.15), blurRadius: 80, spreadRadius: 20)],
                   ),
                 ),
               ),
               Positioned(
-                bottom: 150,
-                right: -50,
+                bottom: 150, right: -50,
                 child: Container(
-                  width: 250,
-                  height: 250,
+                  width: 250, height: 250,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xff8B5CF6).withOpacity(0.15),
-                        blurRadius: 100,
-                        spreadRadius: 25,
-                      ),
-                    ],
+                    boxShadow: [BoxShadow(color: const Color(0xff8B5CF6).withOpacity(0.15), blurRadius: 100, spreadRadius: 25)],
                   ),
                 ),
               ),
@@ -118,7 +93,6 @@ class _MainMenuPageState extends State<MainMenuPage> with SingleTickerProviderSt
                 child: Column(
                   children: [
                     const Spacer(flex: 2),
-                    // هیرو سکشن و انیمیشن پالس لوگو
                     ScaleTransition(
                       scale: Tween<double>(begin: 0.96, end: 1.04).animate(
                         CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
@@ -133,23 +107,20 @@ class _MainMenuPageState extends State<MainMenuPage> with SingleTickerProviderSt
                               fontSize: 38,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 2,
-                              shadows: [
-                                Shadow(
-                                  color: const Color(0xffFF3B5C).withOpacity(0.8),
-                                  blurRadius: 25,
-                                ),
-                              ],
+                              fontFamilyFallback: AppTheme.fontFamilyFallback,
+                              shadows: [Shadow(color: const Color(0xffFF3B5C).withOpacity(0.8), blurRadius: 25)],
                               color: Colors.transparent,
                             ),
                           ),
-                          const Text(
+                          Text(
                             '🔥 CRINGE 🔥',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 38,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 2,
-                              color: Color(0xffFAFAFA),
+                              fontFamilyFallback: AppTheme.fontFamilyFallback,
+                              color: const Color(0xffFAFAFA),
                             ),
                           ),
                         ],
@@ -163,13 +134,18 @@ class _MainMenuPageState extends State<MainMenuPage> with SingleTickerProviderSt
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: const Color(0xffFF3B5C).withOpacity(0.3)),
                       ),
-                      child: const Text(
+                      child: Text(
                         'PARTY EDITION 🎲',
-                        style: TextStyle(color: Color(0xffFF3B5C), fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1),
+                        style: TextStyle(
+                          color: const Color(0xffFF3B5C),
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                          fontFamilyFallback: AppTheme.fontFamilyFallback,
+                        ),
                       ),
                     ),
                     const Spacer(flex: 2),
-                    
                     AnimatedGlassMenuButton(
                       title: '🥳  دورهمی دوستانه',
                       subtitle: 'مخصوص جمع‌های رفقا و اکیپ‌های صمیمی',
@@ -199,7 +175,6 @@ class _MainMenuPageState extends State<MainMenuPage> with SingleTickerProviderSt
   }
 }
 
-// --- ۲. صفحه انتخاب لول ---
 class LevelSelectionPage extends StatelessWidget {
   final String category;
   const LevelSelectionPage({super.key, required this.category});
@@ -283,7 +258,6 @@ class LevelSelectionPage extends StatelessWidget {
   }
 }
 
-// --- ۳. صفحه بازی (TINDER SWIPE, PROGRESS BAR, SHAKE EFFECT) ---
 class GamePage extends StatefulWidget {
   final String category;
   final int level;
@@ -335,7 +309,7 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
         "آخرین باری که به خاطر یک رابطه عاطفی یا دلتنگی گریه کردی کی بود و ماجراش چی بود؟",
         "کرینج‌ترین یا ضایع‌ترین حرکتی که تا حالا توی یک دیت برای تحت تأثیر قرار دادن طرف مقابل کردی چی بوده؟",
         "تا حالا شده وسط دیت بفهمی اصلاً از طرف خوشت نمیاد؟ چطوری اون موقعیت رو جمع کردی یا فرار کردی؟",
-        "کدام ویژگی اخلاقی پارتنر قبلی‌ت بوده که اگر در فرد جدید هم ببینی، ثانیه‌ای در رابطه نمی‌مونی Granny؟",
+        "کدام ویژگی اخلاقی پارتنر قبلی‌ت بوده که اگر در فرد جدید هم ببینی، ثانیه‌ای در رابطه نمی‌مونی؟",
       ],
       3: [
         "یک راز، فانتزی یا طرز فکر خاص در مورد رابطه که تا حالا به هیچ‌کس (حتی نزدیک‌ترین چشمت) نگفتی چیه؟",
@@ -351,83 +325,62 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
     _selectedQuestions = _questionsRepository[widget.category]?[widget.level] ?? ["سوالی یافت نشد!"];
-    _shakeController = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: this,
-    );
-    
-    if (widget.level == 3) {
-      _triggerShake();
-    }
+    _shakeController = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
+    if (widget.level == 3) _triggerShake();
   }
 
-  void _triggerShake() {
-    _shakeController.forward(from: 0.0);
-  }
+  void _triggerShake() => _shakeController.forward(from: 0.0);
 
   void _nextCard() {
-    setState(() {
-      if (_currentIndex < _selectedQuestions.length - 1) {
-        _currentIndex++;
-      } else {
-        _currentIndex = 0;
-      }
-    });
-    if (widget.level == 3) {
-      _triggerShake();
-    }
+    setState(() => _currentIndex = (_currentIndex < _selectedQuestions.length - 1) ? _currentIndex + 1 : 0);
+    if (widget.level == 3) _triggerShake();
   }
 
   void _prevCard() {
-    setState(() {
-      if (_currentIndex > 0) {
-        _currentIndex--;
-      } else {
-        _currentIndex = _selectedQuestions.length - 1;
-      }
-    });
-    if (widget.level == 3) {
-      _triggerShake();
-    }
+    setState(() => _currentIndex = (_currentIndex > 0) ? _currentIndex - 1 : _selectedQuestions.length - 1);
+    if (widget.level == 3) _triggerShake();
   }
 
   void _showRandomQuestionBottomSheet() {
-    final allCategoryQuestions = _questionsRepository[widget.category]!.values.expand((element) => element).toList();
-    final randomQuestion = (allCategoryQuestions..shuffle()).first;
-
+    final allQuestions = _questionsRepository[widget.category]!.values.expand((e) => e).toList();
+    final randomQuestion = (allQuestions..shuffle()).first;
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) {
-        return Container(
-          decoration: const BoxDecoration(
-            color: Color(0xff18181B),
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(32), topRight: Radius.circular(32)),
-            border: Border(top: BorderSide(color: Color(0xff8B5CF6), width: 2)),
-          ),
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(width: 50, height: 4, decoration: BoxDecoration(color: Colors.grey[600], borderRadius: BorderRadius.circular(10))),
-              const SizedBox(height: 24),
-              const Text('🎲 سوال تصادفی و شانس تو', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xff8B5CF6))),
-              const SizedBox(height: 20),
-              Text(randomQuestion, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, color: Color(0xffFAFAFA), height: 1.5)),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff8B5CF6),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                ),
-                child: const Text('فهمیدم چالش رو 🤝', style: TextStyle(fontWeight: FontWeight.bold)),
+      builder: (context) => Container(
+        decoration: const BoxDecoration(
+          color: Color(0xff18181B),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(32), topRight: Radius.circular(32)),
+          border: Border(top: BorderSide(color: Color(0xff8B5CF6), width: 2)),
+        ),
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(width: 50, height: 4, decoration: BoxDecoration(color: Colors.grey[600], borderRadius: BorderRadius.circular(10))),
+            const SizedBox(height: 24),
+            Text(
+              '🎲 سوال تصادفی و شانس تو',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xff8B5CF6), fontFamilyFallback: AppTheme.fontFamilyFallback),
+            ),
+            const SizedBox(height: 20),
+            Text(randomQuestion, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, color: Color(0xffFAFAFA), height: 1.5)),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xff8B5CF6),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
-            ],
-          ),
-        );
-      },
+              child: Text(
+                'فهمیدم چالش رو 🤝',
+                style: TextStyle(fontWeight: FontWeight.bold, fontFamilyFallback: AppTheme.fontFamilyFallback),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -441,7 +394,6 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     double progressValue = (_currentIndex + 1) / _selectedQuestions.length;
     bool isToxic = widget.level == 3;
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -454,26 +406,17 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
         child: SafeArea(
           child: Stack(
             children: [
-              // نئون پشت کارت با استفاده درست از boxShadow
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.25,
                 left: MediaQuery.of(context).size.width * 0.15,
                 child: Container(
-                  width: 260,
-                  height: 260,
+                  width: 260, height: 260,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: (isToxic ? const Color(0xffEF4444) : const Color(0xffFF3B5C)).withOpacity(0.12),
-                        blurRadius: 90,
-                        spreadRadius: 10,
-                      ),
-                    ],
+                    boxShadow: [BoxShadow(color: (isToxic ? const Color(0xffEF4444) : const Color(0xffFF3B5C)).withOpacity(0.12), blurRadius: 90, spreadRadius: 10)],
                   ),
                 ),
               ),
-              
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                 child: Column(
@@ -488,11 +431,7 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: const Color(0xff18181B),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.white10),
-                          ),
+                          decoration: BoxDecoration(color: const Color(0xff18181B), borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.white10)),
                           child: Row(
                             children: [
                               const Text('کارت ', style: TextStyle(fontSize: 13, color: Colors.grey)),
@@ -505,7 +444,6 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
                       ],
                     ),
                     const SizedBox(height: 16),
-                    
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: LinearProgressIndicator(
@@ -516,87 +454,53 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
                       ),
                     ),
                     const Spacer(),
-                    
                     AnimatedBuilder(
                       animation: _shakeController,
                       builder: (context, child) {
-                        double offset = 0.0;
-                        if (_shakeController.value > 0) {
-                          offset = math.sin(_shakeController.value * 4 * math.pi) * 8;
-                        }
-                        return Transform.translate(
-                          offset: Offset(offset, 0),
-                          child: child,
-                        );
+                        double offset = _shakeController.value > 0 ? math.sin(_shakeController.value * 4 * math.pi) * 8 : 0.0;
+                        return Transform.translate(offset: Offset(offset, 0), child: child);
                       },
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 350),
-                        transitionBuilder: (Widget child, Animation<double> animation) {
-                          return ScaleTransition(
-                            scale: animation,
-                            child: FadeTransition(opacity: animation, child: child),
-                          );
-                        },
+                        transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: FadeTransition(opacity: animation, child: child)),
                         child: KeyedSubtree(
                           key: ValueKey<int>(_currentIndex),
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.48,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [Color(0xff1E293B), Color(0xff0F172A)],
-                              ),
+                              gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xff1E293B), Color(0xff0F172A)]),
                               borderRadius: BorderRadius.circular(30),
-                              border: Border.all(
-                                color: isToxic ? const Color(0xffEF4444).withOpacity(0.5) : const Color(0xffFF3B5C).withOpacity(0.3),
-                                width: 2,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: (isToxic ? const Color(0xffEF4444) : const Color(0xffFF3B5C)).withOpacity(0.15),
-                                  blurRadius: 25,
-                                  spreadRadius: 2,
-                                )
-                              ],
+                              border: Border.all(color: isToxic ? const Color(0xffEF4444).withOpacity(0.5) : const Color(0xffFF3B5C).withOpacity(0.3), width: 2),
+                              boxShadow: [BoxShadow(color: (isToxic ? const Color(0xffEF4444) : const Color(0xffFF3B5C)).withOpacity(0.15), blurRadius: 25, spreadRadius: 2)],
                             ),
                             padding: const EdgeInsets.all(32),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      isToxic ? '☠️ TOXIC QUESTION' : '🔥 CRINGE CARD',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w900, // اصلاح شده از FontWeight.black
-                                        letterSpacing: 1.5,
-                                        color: isToxic ? const Color(0xffEF4444) : const Color(0xffFF3B5C),
-                                      ),
-                                    ),
-                                  ],
+                                Text(
+                                  isToxic ? '☠️ TOXIC QUESTION' : '🔥 CRINGE CARD',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 1.5,
+                                    fontFamilyFallback: AppTheme.fontFamilyFallback,
+                                    color: isToxic ? const Color(0xffEF4444) : const Color(0xffFF3B5C),
+                                  ),
                                 ),
                                 const Spacer(),
                                 Text(
                                   _selectedQuestions[_currentIndex],
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffFAFAFA),
-                                    height: 1.6,
-                                  ),
+                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xffFAFAFA), height: 1.6),
                                 ),
                                 const Spacer(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('👈 رد کن', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                                    Text('بعدی 👉', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                                    Text('👈 رد کن', style: TextStyle(fontSize: 12, color: Colors.grey[500], fontFamilyFallback: AppTheme.fontFamilyFallback)),
+                                    Text('بعدی 👉', style: TextStyle(fontSize: 12, color: Colors.grey[500], fontFamilyFallback: AppTheme.fontFamilyFallback)),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -604,7 +508,6 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
                       ),
                     ),
                     const Spacer(),
-                    
                     Row(
                       children: [
                         Expanded(
@@ -615,7 +518,10 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
                               padding: const EdgeInsets.symmetric(vertical: 18),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                             ),
-                            child: const Text('کارت قبلی 🫣', style: TextStyle(color: Color(0xffFAFAFA), fontSize: 15)),
+                            child: Text(
+                              'کارت قبلی 🫣',
+                              style: TextStyle(color: const Color(0xffFAFAFA), fontSize: 15, fontFamilyFallback: AppTheme.fontFamilyFallback),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -630,17 +536,22 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
                               shadowColor: (isToxic ? const Color(0xffEF4444) : const Color(0xffFF3B5C)).withOpacity(0.4),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                             ),
-                            child: const Text('کارت بعدی 👀', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                            child: Text(
+                              'کارت بعدی 👀',
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamilyFallback: AppTheme.fontFamilyFallback),
+                            ),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    
                     ElevatedButton.icon(
                       onPressed: _showRandomQuestionBottomSheet,
                       icon: const Icon(Icons.casino, size: 20),
-                      label: const Text('🎲 سوال تصادفی (چالش آنی)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                      label: Text(
+                        '🎲 سوال تصادفی (چالش آنی)',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamilyFallback: AppTheme.fontFamilyFallback),
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff18181B),
                         foregroundColor: const Color(0xff8B5CF6),
@@ -661,7 +572,6 @@ class _GamePageState extends State<GamePage> with SingleTickerProviderStateMixin
   }
 }
 
-// --- ویجت کارت دسته‌بندی منو ---
 class AnimatedGlassMenuButton extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -688,11 +598,7 @@ class AnimatedGlassMenuButton extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
         child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: gradientColors,
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+            gradient: LinearGradient(colors: gradientColors, begin: Alignment.topLeft, end: Alignment.bottomRight),
             borderRadius: BorderRadius.circular(24),
             border: Border.all(color: borderColor, width: 1.5),
           ),
@@ -707,14 +613,17 @@ class AnimatedGlassMenuButton extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xffFAFAFA))),
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: const Color(0xffFAFAFA), fontFamilyFallback: AppTheme.fontFamilyFallback),
+                        ),
                         const SizedBox(height: 6),
                         Text(subtitle, style: const TextStyle(fontSize: 13, color: Colors.grey, height: 1.4)),
                       ],
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Text(icon, style: const TextStyle(fontSize: 44)),
+                  Text(icon, style: TextStyle(fontSize: 44, fontFamilyFallback: AppTheme.fontFamilyFallback)),
                 ],
               ),
             ),
@@ -725,7 +634,6 @@ class AnimatedGlassMenuButton extends StatelessWidget {
   }
 }
 
-// --- ویجت کارت لول با انیمیشن لمس اصلاح شده (AnimatedContainer جایگزین AnimatedTransform شده) ---
 class LevelCard extends StatefulWidget {
   final String title;
   final String subtitle;
@@ -753,10 +661,7 @@ class _LevelCardState extends State<LevelCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) => setState(() => _scale = 0.96),
-      onTapUp: (_) {
-        setState(() => _scale = 1.0);
-        widget.onTap();
-      },
+      onTapUp: (_) { setState(() => _scale = 1.0); widget.onTap(); },
       onTapCancel: () => setState(() => _scale = 1.0),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
@@ -767,29 +672,19 @@ class _LevelCardState extends State<LevelCard> {
           color: const Color(0xff18181B),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(color: widget.color.withOpacity(0.35), width: 2),
-          boxShadow: [
-            BoxShadow(color: widget.color.withOpacity(0.1), blurRadius: 15, offset: const Offset(0, 5))
-          ],
+          boxShadow: [BoxShadow(color: widget.color.withOpacity(0.1), blurRadius: 15, offset: const Offset(0, 5))],
         ),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Row(
           children: [
-            Text(widget.emoji, style: const TextStyle(fontSize: 36)),
+            Text(widget.emoji, style: TextStyle(fontSize: 36, fontFamilyFallback: AppTheme.fontFamilyFallback)),
             const SizedBox(width: 20),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    widget.title,
-                    style: TextStyle(
-                      fontSize: 22, 
-                      fontWeight: FontWeight.w900, // اصلاح شده از FontWeight.black
-                      color: widget.color, 
-                      letterSpacing: 1,
-                    ),
-                  ),
+                  Text(widget.title, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: widget.color, letterSpacing: 1)),
                   const SizedBox(height: 2),
                   Text(widget.subtitle, style: const TextStyle(fontSize: 13, color: Color(0xffFAFAFA))),
                 ],
