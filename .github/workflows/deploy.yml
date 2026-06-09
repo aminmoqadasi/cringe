@@ -18,7 +18,7 @@ jobs:
 
       - run: flutter pub get
 
-      - run: flutter build web --release --base-href "/cringe/" --web-renderer html
+      - run: flutter build web --release --base-href "/cringe/" --wasm
 
       - uses: peaceiris/actions-gh-pages@v4
         with:
