@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:ui';
 import 'dart:math' as math;
 import 'app_theme.dart';
+import 'splash_screen.dart';
 
 void main() {
   runApp(const CringeGameApp());
@@ -24,7 +25,7 @@ class CringeGameApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       theme: AppTheme.darkTheme,
-      home: const MainMenuPage(),
+      home: const SplashScreen(),
     );
   }
 }
