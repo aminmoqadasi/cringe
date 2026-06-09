@@ -38,7 +38,7 @@ _flutter.buildConfig = {"engineRevision":"c416acfeb8126e097f758c664aaa3da929e27d
 
 _flutter.loader.load({
   config: {
-    canvasKitBaseUrl: "/canvaskit/",
+    canvasKitBaseUrl: "/cringe/canvaskit/",
     fontFallbackBaseUrl: "",
   },
 });
