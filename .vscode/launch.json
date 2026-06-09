@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "cringe_game (Chrome, offline web)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--no-web-resources-cdn"
+      ]
+    },
+    {
+      "name": "cringe_game (Chrome)",
+      "request": "launch",
+      "type": "dart"
+    }
+  ]
+}
