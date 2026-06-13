@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/package_model.dart';
 import '../app_theme.dart';
 import 'game_page.dart';
+import '../data/questions_data.dart';
 
 class PackagePage extends StatelessWidget {
   final PackageCategory category;
