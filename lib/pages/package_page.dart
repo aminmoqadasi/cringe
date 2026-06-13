@@ -293,7 +293,6 @@ class _PackageCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: i < tag.score ? package.levelColor : Colors.white12,
-                        ),
                       ),
                     )),
                   ),
