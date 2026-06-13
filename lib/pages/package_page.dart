@@ -286,13 +286,13 @@ class _PackageCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Row(
-                    children: List.generate(5, (i) => Padding(
-                      padding: const EdgeInsets.only(right: 3),
-                      child: Text(
-                        '●',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: i < tag.score ? package.levelColor : Colors.white12,
+                    children: List.generate(5, (i) => Container(
+                      margin: const EdgeInsets.only(right: 4),
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: i < tag.score ? package.levelColor : Colors.white12,
                         ),
                       ),
                     )),
